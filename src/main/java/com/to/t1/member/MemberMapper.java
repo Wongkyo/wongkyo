@@ -22,7 +22,7 @@ public interface MemberMapper {
 	
 	public void memberRegister(MemberVO memberVO) throws Exception;
 	
-
+//uygg
 	// 유저체크
 	public MemberVO userCheck(MemberVO memberVO) throws Exception;
 	
