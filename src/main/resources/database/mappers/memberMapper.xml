@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+   <mapper namespace="com.to.t1.member.MemberMapper">
+
+
+		<update id="memberUpdate" parameterType="MemberVO">
+			update member set userPw=#{userPw}, name=#{name}, gender=#{gender}, phone=#{phone}, email=#{email}, adress=#{adress}, birth=#{birth} where userId=#{userId}
+		</update>
+
+		
+		<delete id="memberDelete" parameterType="MemberVO">
+			delete from member where userId=#{userId} and userPw=#{userPw}
+		</delete>
+
+
+		<insert id="setJoin" parameterType="MemberVO">
+		INSERT INTO member ( userId, userPw , name, gender, phone, adress, email, birth)
+		VALUE ( #{id}, #{pw}, #{name}, #{gender}, #{phone} , #{adress}, #{email}, #{birth})
+		</insert>
+
+		<select id="getList" resultType="MemberVO" parameterType="MemberVO">
+		select *
+		from member
+		</select>
+		
+		<select id="memberLogin" resultType="MemberVO">
+        SELECT *
+        FROM member
+        WHERE userId = #{userId}
+        AND userPw = #{userPw}
+    	</select>
+		
+
+   		<select id="memberJoinCheck" parameterType="MemberVO" resultType="MemberVO">
+			select * from member where name=#{name}
+		</select>
+
+		<select id="idCheck" parameterType="String" resultType="Integer">
+        SELECT count(*)
+        FROM member
+        WHERE userId = #{userId}
+    </select>
+ 
+ 	<insert id="memberRegister">
+   	 INSERT into member(userId, userPw, name, phone, email, adress, gender, birth )
+   	 VALUES (#{userId}, #{userPw}, #{name}, #{phone}, #{email}, #{adress}, #{gender}, #{birth})
+		</insert>
+
+	</mapper>
