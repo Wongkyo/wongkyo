@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+   <mapper namespace="com.to.t1.notice.NoticeMapper">
+   
+   <!-- 게시판 글 삽입 sql문 -->
+   <insert id="insertNotice" parameterType="NoticeVO">
+   		INSERT INTO notice (title, contents, day, hit) 
+		VALUES ( #{title},#{contents}, now(), 0)  
+   </insert>
+   
+   <!-- 게시판 이미지 삽입 sql문 -->
+   <insert id="insertNoticeFiles" parameterType="NoticeFileVO">
+     	INSERT INTO noticefiles (noNum, fileName, oriName)
+		VALUES ((SELECT IFNULL(MAX(noNum)+1,1)
+		FROM noticefiles NF), #{fileName}, #{oriName})    	
+   </insert>
+   
+   <!-- 게시판 글 리스트 sql문 -->
+   <select id="getList" resultType="NoticeVO" parameterType="NoticeVO">
+		SELECT N.*, NF.*
+		FROM notice N LEFT JOIN noticefiles NF
+		ON N.noNum = NF.noNum
+		ORDER BY N.noNum desc
+   </select>
+   
+   	<update id="updateNoitce" parameterType="NoticeVO">
+   		UPDATE notice
+		SET title = #{title} , contents = #{contents}
+		WHERE noNum = #{noNum}
+   	</update>
+   
+   <delete id="deleteNoitce" parameterType="NoticeVO">
+   		DELETE 
+		FROM notice 
+		WHERE noNum = #{noNum}
+   </delete>
+   
+   <delete id="fileDelete" parameterType="NoticeFileVO">
+   		DELETE
+   		FROM noticefiles 
+   		where noNum =#{noNum}
+   </delete>
+   
+    <select id="noticeSelect" resultType="NoticeVO" parameterType="NoticeVO">
+        SELECT N.*, NF.* 
+        from notice N left join noticefiles NF
+        on N.noNum = NF.noNum
+        WHERE N.noNum=#{noNum}
+    </select>
+
+	  <select id="fileSelect" parameterType="NoticeFileVO" resultMap="selectResult">
+		SELECT N.*, NF.* from
+	    notice N left join noticefiles NF
+	    on N.noNum = NF.noNum
+	    WHERE N.noNum=#{noNum}
+   </select>
+	
+    <resultMap type="NoticeVO" id="selectResult">
+         <id property="noNum" column="noNum"/>
+         <result column="title" property="title"/>
+         <result column="contents" property="contents"/>
+         <result column="day" property="day"/>
+         <result column="hit" property="hit"/>
+         <association property="noticeFileVO" javaType="NoticeFileVO" resultMap="fileResult">
+          </association>
+    </resultMap>
+   
+   	<resultMap type="NoticeFileVO" id="fileResult">
+   		  <id property="noNum" column="noNum"/>
+   		  <result property="fileName" column="fileName"/>
+		  <result property="oriName" column="oriName"/>
+   	</resultMap>
+   
+   <update id="hitUpdate" parameterType="NoticeVO">
+        update notice set hit=hit+1 where noNum=#{noNum}
+   </update>
+
+   </mapper>

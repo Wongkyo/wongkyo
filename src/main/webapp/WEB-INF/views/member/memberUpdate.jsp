@@ -56,7 +56,7 @@
     <div class="input-form-backgroud row">
       <div class="input-form col-md-12 mx-auto">
         <h4 class="mb-3">회원정보수정</h4>
-        <form class="validation-form" action="memberUpdate"  method="post" >
+        <form class="validation-form" action="memberUpdate"  method="post" enctype="multipart/form-data" >
         
           <div class="mb-3">
             <label for="id">아이디</label>
@@ -122,11 +122,20 @@
               </div>
             </div>
           </div>
+          
+            <div class="login-input-wrap input-password">
+                        <i class="fas fa-file"></i>
+                        <input type="file" placeholder="Photo Registration(Selection)"  id="avatar" name="avatar" >
+                    </div>
+                    
 
           <div class="mb-4"></div>
           <button class="btn btn-dark btn-lg btn-block" onclick='memberUpdate()'>수정 완료</button>
         
     </form>
+    </div>
+    </div>
+    </div>
     
    
     <footer class="my-3 text-center text-small">

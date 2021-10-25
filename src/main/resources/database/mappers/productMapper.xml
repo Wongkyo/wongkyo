@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    <mapper namespace="com.to.t1.product.ProductMapper">
+    
+    <!-- 상품검색 -->
+    <select id="proSearch" parameterType="ProductVO" resultType="ProductVO">
+    		SELECT *
+			FROM product
+			WHERE (proName LIKE CONCAT('%', "#{productVO.search}", '%'))    		
+    </select>
+    
+    <!-- 상품 등록 -->   
+    <insert id="proInsert">
+	    	INSERT INTO product (proNum, userId, proName, proCategory, proInfo, proPrice )
+			VALUES (#{proNum},  #{userId}, #{proName}, #{proCategory}, #{proInfo}, #{proPrice})
+    </insert>
+    
+    <!-- 상품 이미지 등록 -->
+    <insert id="fileInsert" parameterType="ProfilesVO">
+			INSERT INTO profiles (proNum, fileName, oriName)
+			VALUES ((SELECT IFNULL(MAX(proNum)+1,1)
+			FROM profiles PF), #{fileName}, #{oriName})
+    </insert>
+    
+    <!-- 상품 선택 -->
+    <select id="proSelect" parameterType="ProductVO" resultType="ProductVO">
+			SELECT P.*, PF.*
+			from product P LEFT JOIN profiles PF
+			ON P.proNum = PF.proNum
+			WHERE P.proNum = #{proNum}
+    </select>
+		
+	<!-- 파일 선택 -->	
+	<select id="fileSelect" parameterType="ProfilesVO" resultMap="productResult">
+			SELECT P.*, PF.*
+			from product P LEFT JOIN profiles PF
+			ON P.proNum = PF.proNum
+			WHERE P.proNum = #{proNum}
+	</select>	
+		
+	<!-- 상품 상품 이미지 테이블  -->
+    <resultMap type="ProductVO" id="productResult">
+    	<id property="proNum" column="proNum"/>
+    	<result property="userId" column="userId"/>
+    	<result property="proName" column="proName"/>
+    	<result property="proCategory" column="proCategory"/>
+    	<result property="proInfo" column="proInfo"/>
+    	<result property="proPrice" column="proPrice"/>
+    	<association property="profilesVO" javaType="ProfilesVO" resultMap="fileResult">
+    	</association>   	
+    </resultMap>
+    
+	<resultMap type="ProfilesVO" id="fileResult">
+		<id property="fileNum" column="fileNum"/>
+		<result property="fileName" column="fileName"/>
+		<result property="oriName" column="oriName"/>
+	</resultMap>
+
+    <!-- 상품 목록 -->
+    <select id="proList" parameterType="ProductVO" resultType="ProductVO">
+		    SELECT P.*, PF.*
+			from product P LEFT JOIN profiles PF
+			ON P.proNum = PF.proNum		
+			ORDER BY P.proNum desc;   
+    </select>
+
+    <!-- 상품 제거 -->
+    <delete id="proDelete" parameterType="ProductVO">
+	    	DELETE 
+			FROM product
+			WHERE proNum = #{proNum}
+    </delete>   
+    
+    <!-- 상품 수정 -->
+    <update id="proUpdate" parameterType="ProductVO">
+	    	UPDATE product 
+			SET proName=#{proName}, proCategory=#{proCategory}, proInfo=#{proInfo}, proPrice=#{proPrice}
+			WHERE proNum = #{proNum}
+    </update>
+         
+    <!-- 상품 이미지 삭제 -->
+    <delete id="fileDelete" parameterType="ProfilesVO">
+	    	DELETE
+			FROM profiles
+			WHERE proNum=#{proNum};		
+    </delete>
+    
+    <!-- 상품 카테고리 리스트 -->
+    <select id="proAppliances" parameterType="ProductVO" resultType="ProductVO">
+    		SELECT P.*, PF.oriName, PF.fileName
+			from product P LEFT JOIN profiles PF
+			ON P.proNum = PF.proNum
+			WHERE proCategory = #{proCategory}
+			ORDER BY proNum DESC;		    
+    </select>
+    
+     <select id="proClothing" parameterType="ProductVO" resultType="ProductVO">
+    		SELECT P.*, PF.oriName, PF.fileName
+			from product P LEFT JOIN profiles PF
+			ON P.proNum = PF.proNum
+			WHERE proCategory = #{proCategory}
+			ORDER BY proNum DESC;		    
+    </select>
+    
+     <select id="proNecessity" parameterType="ProductVO" resultType="ProductVO">
+    		SELECT P.*, PF.oriName, PF.fileName
+			from product P LEFT JOIN profiles PF
+			ON P.proNum = PF.proNum
+			WHERE proCategory = #{proCategory}
+			ORDER BY proNum DESC;		    
+    </select>
+    
+     <select id="promerchandise" parameterType="ProductVO" resultType="ProductVO">
+    		SELECT P.*, PF.oriName, PF.fileName
+			from product P LEFT JOIN profiles PF
+			ON P.proNum = PF.proNum
+			WHERE proCategory = #{proCategory}
+			ORDER BY proNum DESC;		    
+    </select>
+    
+     <select id="proFood" parameterType="ProductVO" resultType="ProductVO">
+    		SELECT P.*, PF.oriName, PF.fileName
+			from product P LEFT JOIN profiles PF
+			ON P.proNum = PF.proNum
+			WHERE proCategory = #{proCategory}
+			ORDER BY proNum DESC;		    
+    </select>
+    
+    <!-- 카테고리 선택 -->
+    <select id="cateSelect" parameterType="ProductVO" resultType="ProductVO">
+    		SELECT P.*, PF.oriName, PF.fileName
+			from product P LEFT JOIN profiles PF
+			ON P.proNum = PF.proNum
+			WHERE P.proNum = #{proNum};
+    </select>
+
+    
+    
+    </mapper>

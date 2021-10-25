@@ -31,6 +31,7 @@
 							<th class="cell100 column6">주소</th>
 							<th class="cell100 column7">이메일</th>
 							<th class="cell100 column8">생년월일</th>
+				
 						</tr>
 					</thead>
 

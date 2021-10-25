@@ -12,50 +12,72 @@
 	<artifactId>t1</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>wongkyo</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Wong Kyo !</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
 	<dependencies>
-	
+			
+		<!-- <grupId>란? 당신의 프로젝트를 모든 프로젝트 사이에서 고유하게 식별하게 해 주는 것이다.-->	
+			
+		<!-- <artifactId>란? 버전 정보를 생략한 jar 파일의 이름이다.-->		
+			
+		<!-- 파일 업로드  -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.4</version>
+		</dependency>
+		
+		<!-- jstl 사용 -->
 		<dependency> 
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 		 </dependency>
 		 
+		<!-- tomcat 사용 -->		 
 		 <dependency> 
 		 	<groupId>org.apache.tomcat.embed</groupId>
 		 	<artifactId>tomcat-embed-jasper</artifactId>
 		 </dependency>
 
-	
+		<!--  -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		
+		<!-- mybatis 사용 -->
 		<dependency>
 			<groupId>org.mybatis.spring.boot</groupId>
 			<artifactId>mybatis-spring-boot-starter</artifactId>
 			<version>2.2.0</version>
 		</dependency>
 
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+		
+		<!-- mariadb 사용 -->
 		<dependency>
 			<groupId>org.mariadb.jdbc</groupId>
 			<artifactId>mariadb-java-client</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		
+		<!-- 테스트케이스 사용 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
 	</dependencies>
+
 
 	<build>
 		<plugins>
@@ -65,5 +87,6 @@
 			</plugin>
 		</plugins>
 	</build>
+
 
 </project>
