@@ -64,5 +64,18 @@
 	    	</tr>
 		</table> 
        </div>
+       
+   <!-- 상품 수정 및 삭제 -->
+   <c:catch>
+   		<!-- if문 발생 멤버가 관리자 아이디일때만 버튼 출력 -->
+		<c:if test="${member.userId eq 'wong'}">
+			<!-- 공지사항 이벤트 발생 noNum에 맞는 번호를 공지사항으로 업데이트 -->
+			<a href="./${proUpdate}proUpdate?proNum=${vo.proNum}" class="btn btn-danger">Update</a>
+			<!-- 공지사항 삭제 버튼 클릭시 온클릭으로 스크립트 발생  -->
+			<a href="/proList" class="btn btn-danger" onclick="del()">Delete</a>
+		</c:if>
+	</c:catch>
+       
+       
 </body>
 </html>

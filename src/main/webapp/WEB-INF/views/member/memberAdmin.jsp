@@ -54,11 +54,11 @@
                             </a>
                                                                
                             <div class="sb-sidenav-menu-heading">Product</div>
-                             <a class="nav-link" href="/productInsert">
+                             <a class="nav-link" href="/proList">
                                 <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                                 Product List
                             </a>
-                            <a class="nav-link" href="index.html">
+                            <a class="nav-link" href="/proInsert">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Product Management
                             </a>              

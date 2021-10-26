@@ -50,6 +50,7 @@
   <div class="container">
     <div class="input-form-backgroud row">
       <div class="input-form col-md-12 mx-auto">
+      
       	<!-- 회원정보 폼 memberUpdate 컨트롤러 실행 post타입 멀티파트로 사진데이터 받기(미구현) -->
         <h4 class="mb-3">회원정보수정</h4>
         <form class="validation-form" action="memberUpdate"  method="post" enctype="multipart/form-data" >
@@ -88,7 +89,7 @@
          <div class="mb-3">
             <label for="address">주소</label>
             <input type="text" class="form-control" name="adress" value="${member.adress}" placeholder="서울특별시 강남구" required>
-          </div>
+         </div>
 
          <!-- 성별 입력 폼 -->    
          <div class="col-md-4 mb-3">
@@ -102,23 +103,24 @@
           <!-- 생년월일 입력 폼 -->   
           <div class="col-md-4 mb-3">
               <label for="code">생년월일</label>
-              <input type="text" class="form-control" name="birth" id="birth" placeholder="8자리 입력" required>
+              <input type="text" class="form-control" name="birth" value="${member.birth}" placeholder="8자리 입력" required>
           </div>   
    
-		 </form>  
-        </div>
-    </div>
-         	<!-- 멤버 사진 파일(미구현) -->
-            <div class="login-input-wrap input-password">
-                 <i class="fas fa-file"></i>
-                 <input type="file" placeholder="Photo Registration(Selection)"  id="avatar" name="avatar" >
-            </div>
+         <!-- 멤버 사진 파일(미구현) -->
+        <!--   <div class="login-input-wrap input-password">
+               <i class="fas fa-file"></i>
+               <input type="file" placeholder="Photo Registration(Selection)"  id="avatar" name="avatar" >
+          </div> -->
 
          <div class="mb-4"></div>
          <!-- 멤버 수정 버튼 (온클릭으로 스크립트 실행) -->
          <button class="btn btn-dark btn-lg btn-block" onclick='memberUpdate()'>수정 완료</button>
+	 
+		 </form>  
+		 </div>
+	 </div>
+</div>
 
-    </div>
 
 	<!-- 푸터 -->
    <footer class="my-3 text-center text-small">

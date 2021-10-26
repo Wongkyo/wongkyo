@@ -63,11 +63,11 @@
 												                src="../resources/uploadproduct/${necessity.fileName}" alt="..." 
 												                  width="60" height="60"	/></td>
 							<!-- 상품 전호 오름차순으로 정렬, 링크로 해당번호 상품 이동가능 -->
-							<td scope="col" class="text-center"><a href="./proSelect?proNum=${necessity.proNum}">${necessity.proNum}</a></td>
+							<td scope="col" class="text-center"><a href="./cateSelect?proNum=${necessity.proNum}">${necessity.proNum}</a></td>
 							<!-- 상품 등록한 유저 아이디 -->
 							<td scope="col" class="text-center">${necessity.userId}</td>
 							<!-- 상품 이름 링크로 해당번호 상품 이동가능 -->
-							<td scope="col" class="text-center"><a href="./proSelect?proNum=${necessity.proNum}">${necessity.proName}</a></td>
+							<td scope="col" class="text-center"><a href="./cateSelect?proNum=${necessity.proNum}">${necessity.proName}</a></td>
 							<!-- 상품 카테고리 -->
 							<td scope="col" class="text-center">${necessity.proCategory}</td>
 							<!-- 상품 정보 -->
