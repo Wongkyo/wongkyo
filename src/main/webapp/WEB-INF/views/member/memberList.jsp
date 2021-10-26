@@ -6,18 +6,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
+<!-- 헤더 임포트 -->
+<c:import url="../fragments/header.jsp"></c:import>
 </head>
+
 <body>
-	<c:import url="../fragments/header.jsp"></c:import>
-	
+	<!--  추후 어드민에서 관리할 사항 -->
 	<div class="container">
-		<br>
-		<h2>	
-		<span	style="border-radius: 15px 15px 15px 15px; border: 3px solid #b4b4b4;
-				padding: 0.5em 0.6em; color: black; background-color: #dcdcdc;">회원리스트</span>		
-		</h2>
-		<br><br>
+
 		<div class="table100 ver5 m-b-110">
 			<div class="table100-head">
 				<table>

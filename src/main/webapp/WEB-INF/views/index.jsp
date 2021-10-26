@@ -1,23 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" 
 pageEncoding="utf-8" isELIgnored="false"%> 
+<!-- 자바서버 페이지 표준 태그 라이브러리 사용 -->    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
+<!-- 폼태그사용 -->
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html lang="en">
-    
-    <body>
-    <c:import url="./fragments/header.jsp"></c:import>
-      
-        <!-- Header-->
-        <header class="bg-dark py-5">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">New Market</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">정들었던 물건이 새로운 사람에게로</p>
-                </div>
-            </div>
-        </header>
-        
+
+  <body>   
+   
+   <!-- 헤더 임포트 --> 
+   <c:import url="./fragments/header.jsp"></c:import>
+
+   <!-- 머릿말 작성-->
+   <header class="bg-dark py-5">
+       <div class="container px-4 px-lg-5 my-5">
+          <div class="text-center text-white">
+           <h1 class="display-4 fw-bolder">New Market</h1>
+            <p class="lead fw-normal text-white-50 mb-0">정들었던 물건이 새로운 사람에게로</p>
+           </div>
+       </div>
+   </header>
+
+	<!-- 부트스트랩 적용 (추후 상품관련으로 채울예정) -->      
         <!-- Section-->
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">

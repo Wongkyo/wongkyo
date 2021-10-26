@@ -4,15 +4,18 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
+    <!-- 네임스페이스 적용 -->
    <mapper namespace="com.to.t1.notice.NoticeMapper">
    
-   <!-- 게시판 글 삽입 sql문 -->
+   <!-- 게시판 글 삽입 -->
+   <!-- auto increment로 자동증가하는 noNum 생략 날짜는 now()로 등록시 날짜 삽입, 조회수는 기본 0 -->
    <insert id="insertNotice" parameterType="NoticeVO">
    		INSERT INTO notice (title, contents, day, hit) 
 		VALUES ( #{title},#{contents}, now(), 0)  
    </insert>
    
    <!-- 게시판 이미지 삽입 sql문 -->
+   <!-- 공지시항 번호와 공지사항 사진파일 번호를 맞추기 위해 공지사항의 최대값을 찾아 그 번호에 맞물리게 입력후 삽입 -->
    <insert id="insertNoticeFiles" parameterType="NoticeFileVO">
      	INSERT INTO noticefiles (noNum, fileName, oriName)
 		VALUES ((SELECT IFNULL(MAX(noNum)+1,1)
@@ -20,6 +23,7 @@
    </insert>
    
    <!-- 게시판 글 리스트 sql문 -->
+   <!-- 공지사항 리스트로 사진파일을 같이 조회하기 위해 join으로 공지사항 파일 테이블과 병합 -->
    <select id="getList" resultType="NoticeVO" parameterType="NoticeVO">
 		SELECT N.*, NF.*
 		FROM notice N LEFT JOIN noticefiles NF
@@ -27,24 +31,32 @@
 		ORDER BY N.noNum desc
    </select>
    
+   <!-- 공지사항 수정 -->
+   <!-- 공지사항은 제목과 내용만 바꾸면 다른것은 바꿀필요가 없으므로 번호를 찾아 제목과 번호만 수정 -->
    	<update id="updateNoitce" parameterType="NoticeVO">
    		UPDATE notice
 		SET title = #{title} , contents = #{contents}
 		WHERE noNum = #{noNum}
    	</update>
    
+   <!-- 공지사항 삭제 -->
+   <!-- 공지사항의 번호를 찾아 삭제, 파일테이블에서 noNum을 키값으로 받기 때문에 같이 삭제-->
    <delete id="deleteNoitce" parameterType="NoticeVO">
    		DELETE 
 		FROM notice 
 		WHERE noNum = #{noNum}
    </delete>
    
+   <!-- 공지사항 파일 삭제 -->
+   <!-- 혹여나 공지사항과 사진 파일이 맞물리지않을때 사용.. -->
    <delete id="fileDelete" parameterType="NoticeFileVO">
    		DELETE
    		FROM noticefiles 
    		where noNum =#{noNum}
    </delete>
    
+   <!-- 공지사항 선택 -->
+   <!-- 공지사항 선택후 공지사항 내용확인 (사진이 나와야 하므로 파일테이블과 조인) -->
     <select id="noticeSelect" resultType="NoticeVO" parameterType="NoticeVO">
         SELECT N.*, NF.* 
         from notice N left join noticefiles NF
@@ -52,7 +64,8 @@
         WHERE N.noNum=#{noNum}
     </select>
 
-	  <select id="fileSelect" parameterType="NoticeFileVO" resultMap="selectResult">
+	<!-- 파일셀렉트로 공지사항과 공지사항 사진 테이블을 러절트 맵으로 묶음 -->
+	<select id="fileSelect" parameterType="NoticeFileVO" resultMap="selectResult">
 		SELECT N.*, NF.* from
 	    notice N left join noticefiles NF
 	    on N.noNum = NF.noNum
@@ -75,6 +88,8 @@
 		  <result property="oriName" column="oriName"/>
    	</resultMap>
    
+   <!-- 조회수 -->
+   <!-- noNum을 선택하여 들어가 때 마다 히트수가 1씩 올라감 -->
    <update id="hitUpdate" parameterType="NoticeVO">
         update notice set hit=hit+1 where noNum=#{noNum}
    </update>

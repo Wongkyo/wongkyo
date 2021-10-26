@@ -4,9 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
   
   <configuration>
-     <typeAliases>
-     	
-     	
+     <typeAliases>     	
+	   	<!-- 매퍼 VO 작성 간결화  -->
    		<typeAlias type="com.to.t1.member.MemberVO" alias="MemberVO"/>  
      	<typeAlias type="com.to.t1.member.JoinFileVO" alias="JoinFileVO"/>
 		<typeAlias type="com.to.t1.product.ProductVO" alias="ProductVO"/>

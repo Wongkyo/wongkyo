@@ -3,13 +3,20 @@ package com.to.t1.notice;
 import java.sql.Date;
 
 public class NoticeVO {
-
+	
+	// 공지사항 번호(기본키)
 	private long noNum;
+	// 공지사항 제목
 	private String title;
+	// 공지사항 내용
 	private String contents;
+	// 공지사항 등록 날짜
 	private Date day;
-	private long hit;	
+	// 공지사항 조회수
+	private long hit;
+	// 공지사항 파일이름
 	private String fileName;
+	// 공지사항 파일 VO
 	private NoticeFileVO noticeFileVO;
 	
 	// ------------ getter and setter ---------------

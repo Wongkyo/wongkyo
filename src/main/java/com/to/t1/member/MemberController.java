@@ -90,9 +90,9 @@ public class MemberController {
 		// postMapping으로 멤버 아이디 비밀번호 값 전송
 		@RequestMapping(value="/memberLogin", method= {RequestMethod.POST})
 		public String memberLogin(MemberVO memberVO,HttpServletRequest req,RedirectAttributes rttr)throws Exception{			
-			// session 객체 생성
+			// session 파리미터 생성
 			HttpSession session = req.getSession();
-			// member 객체 생성
+			// member 파리미터 생성
 			MemberVO member = memberService.memberLogin(memberVO);	
 			//멤버가 존재할때 
 			if(member == null) {
@@ -148,7 +148,7 @@ public class MemberController {
 		// 멤버 딜리트 ------------------------------------------------	---------------------------------------------------
 		@RequestMapping("memberDelete") // MemberDelete
 		public String memberDelete(HttpSession session)throws Exception{
-			// 멤버 객체 생성
+			// 멤버 파리미터 생성
 			MemberVO memberVO =(MemberVO)session.getAttribute("member");
 			
 			@SuppressWarnings("unused")
