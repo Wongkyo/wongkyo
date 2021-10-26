@@ -42,7 +42,7 @@
 <!-- 수정완료 스크립트 -->
 <script type="text/javascript">
 	function memberUpdate(){
-		alert("수정완료!");
+		alert("정보수정이 완료되었습니다. 재로그인 해주세요.");
 	}
 </script> 
 
@@ -129,6 +129,7 @@
     
     <!-- 제이쿼리 받아오기 -->
 	<script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
-  
+  		<!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

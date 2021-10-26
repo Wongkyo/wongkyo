@@ -104,7 +104,8 @@
     <footer class="my-3 text-center text-small">
       <p class="mb-1">&copy; New Market</p>
     </footer>
-    
+   	<!-- Bootstrap core JS-->
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
  	<!-- 부트스트랩 -->
 	<script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
 </body>

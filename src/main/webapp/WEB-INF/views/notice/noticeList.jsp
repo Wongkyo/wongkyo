@@ -64,29 +64,13 @@
 				</table>
 			</div>			
 	  </div>
-	  
-	  <ul class="pagination">
-
-				<c:if test="${pager.pre}">
-					<li class="page-item"><a class="page-link p" href="#"
-						title="${pager.startNum-1}">이전</a></li>
-				</c:if>
-
-				<c:forEach begin="${pager.startNum}" end="${pager.lastNum}" var="i">
-
-					<li class="page-item"><a class="page-link p" href="#"
-						title="${i}">${i}</a></li>
-				</c:forEach>
-
-				<c:if test="${pager.next}">
-					<li class="page-item"><a class="page-link p" href="#"
-						title="${pager.lastNum+1}">다음</a></li>
-				</c:if>
-			</ul>
-	  
+	 
 	  <!-- 푸터 -->
 	   <footer class="my-3 text-center text-small">
       		<p class="mb-1">&copy; New Market</p>
    	   </footer>
+   	   
+   			<!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>   
 </body>
 </html>

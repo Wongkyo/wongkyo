@@ -10,7 +10,6 @@
 <!-- 헤더 임포트 -->
 <c:import url="../fragments/header.jsp"></c:import>
 <meta charset="UTF-8">
-
 <title>New Market ProList</title>
 </head>
 <body>
@@ -78,6 +77,8 @@
 		</div>
 	</div>
 </div>
-		
+		<!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+     
 </body>
 </html>

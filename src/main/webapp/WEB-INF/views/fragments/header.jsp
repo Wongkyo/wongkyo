@@ -43,18 +43,18 @@
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">분류</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <!-- 전체상품 리스트로 이동 -->
-                                <li><a class="dropdown-item" href="proList">전체 상품</a></li>
+                                <li><a class="dropdown-item" href="/proList">전체 상품</a></li>
                                 <li><hr class="dropdown-divider"/></li>
                                 <!-- 가전제품 리스트로 이동 -->
-                                <li><a class="dropdown-item" href="proCategory/proAppliances">가전</a></li>
+                                <li><a class="dropdown-item" href="/proCategory/proAppliances">가전</a></li>
                                 <!-- 의류제품 리스트로 이동 -->
-                                <li><a class="dropdown-item" href="proCategory/proClothing">의류</a></li>
+                                <li><a class="dropdown-item" href="/proCategory/proClothing">의류</a></li>
                                 <!-- 생필품 리스트로 이동 -->
-                                <li><a class="dropdown-item" href="proCategory/proNecessity">생필품</a></li>
+                                <li><a class="dropdown-item" href="/proCategory/proNecessity">생필품</a></li>
                                 <!-- 잡화 리스트로 이동 -->
-                                <li><a class="dropdown-item" href="proCategory/proMerchandise">잡화</a></li>
+                                <li><a class="dropdown-item" href="/proCategory/proMerchandise">잡화</a></li>
                                 <!-- 음식 리스트로 이동 -->
-                                <li><a class="dropdown-item" href="proCategory/proFood" >음식</a></li>
+                                <li><a class="dropdown-item" href="/proCategory/proFood" >음식</a></li>
                             </ul>
                         </li>
                     </ul>

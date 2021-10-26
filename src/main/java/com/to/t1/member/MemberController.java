@@ -141,8 +141,10 @@ public class MemberController {
 			if(result>0) {
 				session.setAttribute("member", memberVO);
 			}
-			// 정보수정후 마이페이지로 이동!
-			return "member/membermyPage";
+			// 수정후 자동 로그아웃
+			session.invalidate();
+			// 정보수정후 홈화면로 이동!
+			return "redirect:/";
 		}
 		
 		// 멤버 딜리트 ------------------------------------------------	---------------------------------------------------
