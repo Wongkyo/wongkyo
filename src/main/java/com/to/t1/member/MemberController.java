@@ -1,8 +1,10 @@
 package com.to.t1.member;
 
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
@@ -61,7 +63,7 @@ public class MemberController {
 	            if(count == 0) memberService.memberRegister(memberVO, avatar, session);          
 	        } 	// 멤버의 매퍼에서 카운트가 0이 아닐시 회원정보가 존재하는 것으로 판단 회원가입 불가능 "존재하는 아이디" 출력
 	        	catch (Exception e) {	        	
-	            logger.info("*****존재 하는 아이디");
+	            logger.info("존재 하는 아이디");
 	        }
 	        // 회원가입 완료시 홈화면으로 이동
 	        return "redirect:/";
@@ -89,16 +91,29 @@ public class MemberController {
 		
 		// postMapping으로 멤버 아이디 비밀번호 값 전송
 		@RequestMapping(value="/memberLogin", method= {RequestMethod.POST})
-		public String memberLogin(MemberVO memberVO,HttpServletRequest req,RedirectAttributes rttr)throws Exception{			
+		public String memberLogin(MemberVO memberVO,HttpServletRequest req,RedirectAttributes rttr,HttpServletResponse response)throws Exception{			
 			// session 파리미터 생성
 			HttpSession session = req.getSession();
 			// member 파리미터 생성
 			MemberVO member = memberService.memberLogin(memberVO);	
+			// 1.  매퍼의 로그인 메소드 호출, session에 저장해둘것
+			// 2. 호출 결과를 가지고 로그인 성공하면 main.jsp
+			// 3. 실패하면 memberLogin.jsp로
+			response.setContentType("text/html; charset=utf-8");
+			
+			// alert 창 띄우기위해 선언
+			PrintWriter out = response.getWriter(); 
+			
 			//멤버가 존재할때 
 			if(member == null) {
 				// 멤버 매퍼에서 비교한 멤버아이디와 비밀번호가 일치하지 않을시
 				session.setAttribute("member", null);
 				rttr.addFlashAttribute("msg", false);
+				// 아이디 비밀번호 불일치 스크립트 발생 alert창 
+				out.println("<script> alert('아이디 또는 비밀번호가 틀립니다.');");
+				// 스크립트 발생후 이전페이지로 이동(로그인페이지)
+				out.println("history.go(-1); </script>");
+				out.close();
 				System.out.println("비밀번호 불일치");				
 			}else {
 				// 멤버 매퍼에서 비교한 멤버아이디와 비밀번호가 일치할 시

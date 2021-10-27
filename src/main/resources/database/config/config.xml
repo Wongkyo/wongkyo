@@ -11,6 +11,7 @@
 		<typeAlias type="com.to.t1.product.ProductVO" alias="ProductVO"/>
  		<typeAlias type="com.to.t1.product.ProfilesVO" alias="ProfilesVO"/>
  		<typeAlias type="com.to.t1.notice.NoticeVO" alias="NoticeVO"/>    
- 		<typeAlias type="com.to.t1.notice.NoticeFileVO" alias="NoticeFileVO"/>     
+ 		<typeAlias type="com.to.t1.notice.NoticeFileVO" alias="NoticeFileVO"/>    
+ 		
      </typeAliases>
    </configuration>

@@ -1,6 +1,7 @@
 package com.to.t1.product;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -8,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-
+import com.to.t1.util.Criteria;
 import com.to.t1.util.PoFileManager;
 
 @Service
@@ -42,11 +43,16 @@ public class ProductService {
 		return productMapper.proSelect(productVO);
 	}
 	
-	// 상품 리스트 
-	public List<ProductVO> proList(ProductVO productVO)throws Exception{
-		return productMapper.proList(productVO);
+	// 전체 상품 리스트
+	 public List<Map<String, Object>> proList(Criteria cri) throws Exception {
+	     return productMapper.proList(cri);
 	}
-	
+
+	 // 전체 상품 갯수
+	 public int proListCnt() throws Exception {
+		 return productMapper.proListCnt();
+	 }
+	 
 	// 상품 (전자) 리스트
 	public List<ProductVO> proAppliances(ProductVO productVO)throws Exception{
 		return productMapper.proAppliances(productVO);

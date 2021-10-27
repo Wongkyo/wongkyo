@@ -40,7 +40,7 @@
                         <!-- 상품 드랍다운 이동 선택 -->
                         <li class="nav-item dropdown">
                         	<!-- 분류 선택시 드랍다운으로 종류별 상품 리스트 출력 -->
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">분류</a>
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">카테고리</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <!-- 전체상품 리스트로 이동 -->
                                 <li><a class="dropdown-item" href="/proList">전체 상품</a></li>
@@ -89,12 +89,11 @@
                     <a href="/memberLogin" class="btn btn-outline-dark">로그인</a>                       
                     </c:if>
                     
-                    <!-- 로그인을 해서 멤버정보가 있을시 마이페이지와 로그아웃 버튼 출력 -->
+                    <!-- 로그인을 해서 멤버정보가 있을시 로그인한 회원 아이디 및 마이페이지와 로그아웃 버튼 출력 -->
                     <c:if test="${not empty member}">
-                    <h6>${member.userId}님</h6>               
-                    <!-- 마이페이지로 이동 -->    
-                    <a href="/membermyPage" class="btn btn-outline-dark">마이페이지</a>
+                    <a href="/membermyPage" class="btn  btn-dark">${member.userId}님</a>              
                     &nbsp;&nbsp;
+                    
                     <!-- 클릭 즉시 로그아웃 -->
                     <a href="/memberLogout" class="btn btn-outline-dark">로그아웃</a>                                        
                     </c:if>

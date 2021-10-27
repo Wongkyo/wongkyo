@@ -35,8 +35,6 @@
 							<th scope="col" class="text-center">게시글 번호</th>
 							<!-- 게시글 제목 -->
 							<th scope="col" class="text-center">게시글 제목</th>
-							<!-- 게시글 내용 -->
-							<th scope="col" class="text-center">게시글 내용</th>
 							<!-- 게시글 삽입 당시 날짜 -->
 							<th scope="col" class="text-center">게시글 날짜</th>
 							<!-- 게시글 조회수 클릭시 1씩 상승 -->
@@ -51,9 +49,7 @@
 								<!-- 게시글 번호 오름차순 으로 정렬 기준점-->			
 								<td scope="col" class="text-center" >${data.noNum}</td>
 								<!-- 게시글 번호, 클릭시 해당 번호의 게시글로 이동 -->
-								<td scope="col" class="text-center" ><a href="./noticeSelect?noNum=${data.noNum}">${data.title}</a> </td>
-								<!-- 게시글 내용 -->
-								<td scope="col" class="text-center" >${data.contents}</td>
+								<td scope="col" class="text-center" ><a href="./noticeSelect?noNum=${data.noNum}" style="color: gray;">${data.title}</a> </td>
 								<!-- 게시 당일 날짜 -->
 								<td scope="col" class="text-center">${data.day}</td>
 								<!-- 게시글 조회수 클릭시 1씩 상승 -->		
@@ -62,6 +58,25 @@
 						</c:forEach>
 					</tbody>
 				</table>
+			
+	<!-- 페이징 시작 -->		
+	<div style="float: right; color: black;" >
+		<ul class="paging" >
+			<!-- 이전버튼 -->
+		    <c:if test="${paging.prev}">
+		        <span><a href='<c:url value="/noticeList?page=${paging.startPage-1}"/>'>이전</a></span>
+		    </c:if>
+		    <!-- 페이징 숫자 표기 -->
+		    <c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="num">
+		        <span><a href='<c:url value="/noticeList?page=${num}"/>'>${num}</a></span>
+		    </c:forEach>
+		    <!-- 다음버튼 -->
+		    <c:if test="${paging.next && paging.endPage>0}">
+		        <span><a href='<c:url value="/noticeList?page=${paging.endPage+1}"/>'>다음</a></span>
+		    </c:if>
+		</ul>
+	</div>
+								
 			</div>			
 	  </div>
 	 

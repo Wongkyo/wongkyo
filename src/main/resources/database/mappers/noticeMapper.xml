@@ -21,17 +21,24 @@
 		VALUES ((SELECT IFNULL(MAX(noNum)+1,1)
 		FROM noticefiles NF), #{fileName}, #{oriName})    	
    </insert>
-   
-   <!-- 게시판 글 리스트 sql문 -->
-   <!-- 공지사항 리스트로 사진파일을 같이 조회하기 위해 join으로 공지사항 파일 테이블과 병합 -->
-   <select id="getList" resultType="NoticeVO" parameterType="NoticeVO">
-		SELECT N.*, NF.*
+ 
+    <!-- 게시글 전체 목록 조회와 리미트로 페이징 처리 -->
+   <select id="getList" resultType="hashmap" parameterType="hashmap">       
+        SELECT N.*, NF.*
 		FROM notice N LEFT JOIN noticefiles NF
 		ON N.noNum = NF.noNum
 		ORDER BY N.noNum desc
+        LIMIT #{pageStart}, #{perPageNum}
+       
+   </select>
+
+	<!-- 게시글 전체 갯수 조회 -->
+   <select id="noListCnt" resultType="int">
+       	SELECT count(*)
+        FROM notice
    </select>
    
-   <!-- 공지사항 수정 -->
+  <!-- 공지사항 수정 -->
    <!-- 공지사항은 제목과 내용만 바꾸면 다른것은 바꿀필요가 없으므로 번호를 찾아 제목과 번호만 수정 -->
    	<update id="updateNoitce" parameterType="NoticeVO">
    		UPDATE notice

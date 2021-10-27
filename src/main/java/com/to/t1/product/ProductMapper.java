@@ -1,9 +1,12 @@
 package com.to.t1.product;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import com.to.t1.util.Criteria;
 
 @Mapper
 public interface ProductMapper {
@@ -18,8 +21,11 @@ public interface ProductMapper {
 	public ProductVO proSelect(ProductVO productVO)throws Exception;
 
 	// 상품 전체 리스트
-	public List<ProductVO> proList(ProductVO productVO)throws Exception;
-	
+	public List<Map<String, Object>> proList(Criteria cri) throws Exception;
+	 
+	// 전체 상품 리스트의 갯수
+	public int proListCnt() throws Exception;
+
 	// 상품 카테고리 리스트	
 	// 가전 제품
 	public List<ProductVO> proAppliances(ProductVO productVO)throws Exception;

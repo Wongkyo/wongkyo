@@ -1,6 +1,7 @@
 package com.to.t1.notice;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.to.t1.util.Criteria;
 import com.to.t1.util.NoFileManager;
 
 @Service
@@ -43,10 +45,21 @@ public class NoticeService {
 		}
 		
 	// 게시판 글 리스트 
-	public List<NoticeVO>getList()throws Exception{
-		// 매퍼의 noticeList 가져오기
-		return noticeMapper.getList();
-		}
+	/*
+	 * public List<NoticeVO>getList()throws Exception{ // 매퍼의 noticeList 가져오기 return
+	 * noticeMapper.getList(); }
+	 */
+	
+	// 게시판 글 리스트
+	public List<Map<String, Object>> getList(Criteria cri) throws Exception{
+		return noticeMapper.getList(cri);
+	}
+	
+	// 게시판 글 총 갯수
+	public int noListCnt() throws Exception{
+		return noticeMapper.noListCnt();
+	}
+	
 	
 	// 게시판 글 선택
 	public NoticeVO noticeSelect(NoticeVO noticeVO)throws Exception{

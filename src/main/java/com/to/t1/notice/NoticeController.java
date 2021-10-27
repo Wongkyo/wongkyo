@@ -1,6 +1,7 @@
 package com.to.t1.notice;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.to.t1.util.Criteria;
+import com.to.t1.util.Paging;
 
 @Controller
 public class NoticeController {
@@ -42,14 +46,27 @@ public class NoticeController {
 		
 		// 게시판 글 목록 -------------------------------------------------------------------------------
 		@GetMapping("noticeList")
-		public String getList(Model model)throws Exception{
-			// 리스트형태로 게시판 서비스 호룰
-			List<NoticeVO> list = noticeService.getList();
-			// list로 vlaue 추가
-			model.addAttribute("list", list);		
+		public String getList(Model model, Criteria cri)throws Exception{
+			
+			// 전체 글 갯수 조회
+			int noListCnt = noticeService.noListCnt();
+			
+			// 페이징 객체 선언
+			Paging paging = new Paging();
+			paging.setCri(cri);
+			paging.setTotalCount(noListCnt);
+			
+			// 게시글 리스트 담기
+			List<Map<String, Object>> list = noticeService.getList(cri);
+			
+			// list model에 담기
+			model.addAttribute("list", list);
+			// 페이징 선언
+			model.addAttribute("paging", paging);  
+
 			return "notice/noticeList";
 		}
-		
+				
 		// 게시판 글 선택 -------------------------------------------------------------------------------
 		// getMapping으로 게시판 글 내용 페이지로 이동
 		@GetMapping("noticeSelect")

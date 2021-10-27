@@ -40,7 +40,7 @@
                         <!-- 멤버 수정으로 이동 -->
                         <li class="nav-item"><a class="nav-link active" href="./memberUpdate">회원정보수정</a></li>
                         <!-- 회원탈퇴 온클릭으로 스크립트 실행 -->
-                        <li class="nav-item"><a class="nav-link active" href="" onclick="del()">회원탈퇴</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="/" onclick="del()">회원탈퇴</a></li>
                         <!-- 상품 등록 페이지로 이동 -->
                         <li class="nav-item"><a class="nav-link active" href="proInsert">상품등록</a></li>
                     </ul>

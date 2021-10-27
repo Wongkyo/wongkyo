@@ -1,6 +1,7 @@
 package com.to.t1.product;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -18,6 +19,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.to.t1.util.Criteria;
+import com.to.t1.util.Paging;
 
 @Controller
 public class ProductController {
@@ -57,11 +61,23 @@ public class ProductController {
 	// 상품 전체 리스트 
 	// getMapping으로 상품 리스트로 이동
 	@GetMapping("proList")
-	public String proList(Model model, ProductVO productVO, HttpSession session, Authentication auth2)throws Exception {
-		// 리스트 형태로 proList 호출
-		List<ProductVO> list = productService.proList(productVO);
-		// model에 list 파라미터 담기
+	public String proList(Model model, ProductVO productVO, Criteria cri)throws Exception {
+	
+		// 전체 상품 갯수 조회
+		int proListCnt = productService.proListCnt();
+		
+		// 페이징 객체 선언
+		Paging paging = new Paging();
+		paging.setCri(cri);
+		paging.setTotalCount(proListCnt);
+		
+		// 상품 리스트 담기
+		List<Map<String, Object>> list = productService.proList(cri);
+		// list model에 담기
 		model.addAttribute("list", list);
+		// 페이징 선언
+		model.addAttribute("paging", paging);   
+
 		return "product/proList";
 	}
 	

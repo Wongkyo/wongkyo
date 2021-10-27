@@ -20,7 +20,7 @@
 	<header class="bg-dark py-2">
       <div class="container px-1 px-lg-1 my-1">
         <div class="text-center text-white">
-           <h2 class="display-4 fw-bolder">New Market Appliances List</h2>                    
+           <h2 class="display-4 fw-bolder">Appliances List</h2>                    
         </div>
       </div>
 	</header>

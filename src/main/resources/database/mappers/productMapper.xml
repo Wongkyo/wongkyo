@@ -66,14 +66,20 @@
 		<result property="oriName" column="oriName"/>
 	</resultMap>
 
-    <!-- 상품 목록 -->
-    <!-- 전체 상품 리스트를 파일테이블과 join한 후 오름차순으로 정렬 -->
-    <select id="proList" parameterType="ProductVO" resultType="ProductVO">
-		    SELECT P.*, PF.*
+	<!-- 상품 전체 목록 조회와 리미트로 페이징 처리 -->
+	<select id="proList" resultType="hashmap" parameterType="hashmap">        
+            SELECT P.*, PF.*
 			from product P LEFT JOIN profiles PF
 			ON P.proNum = PF.proNum		
-			ORDER BY P.proNum desc;   
-    </select>
+			ORDER BY P.proNum desc
+            LIMIT #{pageStart}, #{perPageNum}       
+	</select>	
+
+	<!-- 상품 전체 갯수 조회 -->
+	<select id="proListCnt" resultType="int">
+     	    SELECT count(*)
+       		FROM product
+	</select>
 
     <!-- 상품 제거 -->
     <!-- 상품 번호에 따른 상품 제거 -->
