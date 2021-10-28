@@ -54,7 +54,7 @@ public class MemberController {
 	    public String memberRegister(MemberVO memberVO, MultipartFile avatar, HttpSession session, Model model) throws Exception {	 
 	    	// 서비스에 result값으로 회원가입 서비스 가져오기
 	    	int result = memberService.memberRegister(memberVO, avatar, session);	
-	    	    logger.info("***********register POST");
+	    	    logger.info("회원가입!");
 	    	// 회원가입시 아이디 중복 방지를 위해 idCheck 서비스 가져오기    
 	        int count = memberService.idCheck(memberVO.getUserId());	        
 	        try {
@@ -178,7 +178,7 @@ public class MemberController {
 		// 멤버 리스트 ----------------------------------------------------------------------------------------------------
 		@GetMapping("memberList")
 		public String getList(Model model, Criteria cri)throws Exception{
-			
+			// 총 회원 수 담기
 			int memListCnt = memberService.memListCnt();
 			
 			// 페이징 객체 선언
