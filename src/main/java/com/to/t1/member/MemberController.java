@@ -2,18 +2,15 @@ package com.to.t1.member;
 
 import java.io.PrintWriter;
 import java.util.List;
-
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import com.to.t1.util.Criteria;
+import com.to.t1.util.Paging;
 
 @Controller
 public class MemberController {
@@ -136,7 +135,7 @@ public class MemberController {
 		// 마이페이지 ---------------------------------------------------------------------------------------------------
 		// 마이페이지 getMapping으로 멤버 마이페이지로 이동
 		@GetMapping("membermyPage") 
-		public String myPage(MemberVO memberVO, HttpSession session, Authentication auth2, Model model)throws Exception{
+		public String myPage(MemberVO memberVO, HttpSession session)throws Exception{
 			return  "member/membermyPage";
 		}
 		
@@ -178,11 +177,23 @@ public class MemberController {
 	
 		// 멤버 리스트 ----------------------------------------------------------------------------------------------------
 		@GetMapping("memberList")
-		public String getList(Model model)throws Exception{
-			// 리스트형태로 멤버 서비스 호출
-			List<MemberVO> list =memberService.getList();
-			// list로 value추가!
-			model.addAttribute("list", list);			
+		public String getList(Model model, Criteria cri)throws Exception{
+			
+			int memListCnt = memberService.memListCnt();
+			
+			// 페이징 객체 선언
+			Paging paging = new Paging();
+			paging.setCri(cri);
+			paging.setTotalCount(memListCnt);
+			
+			// 게시글 리스트 담기
+			List<Map<String, Object>> list = memberService.getList(cri);
+			
+			// list model에 담기
+			model.addAttribute("list", list);
+			// 페이징 선언
+			model.addAttribute("paging", paging);
+					
 			return "member/memberList";
 		}
 	

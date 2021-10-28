@@ -228,16 +228,13 @@ pageEncoding="utf-8" isELIgnored="false"%>
         </section>
         <!-- Footer-->
         <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
+            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; New Market</p></div>
         </footer>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         
        
-        
-        
-        <a href="/memberList" class="btn btn-outline-dark">회원리스트</a>
         <script src="js/scripts.js"></script>
     </body>
 </html>

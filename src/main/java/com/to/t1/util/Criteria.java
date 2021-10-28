@@ -1,14 +1,26 @@
 package com.to.t1.util;
 
 public class Criteria {
+	// 특정 페이지 조회를 위한 클래스
     
-    // 특정 페이지 조회를 위한 클래스
-    private int page; // 현재 페이지 번호
-    private int perPageNum; // 페이지당 보여줄 게시글의 개수
+	// 현재 페이지 번호
+    private int page; 
+    // 페이지당 보여줄 게시글의 개수
+    private int perPageNum; 
     
-    public int getPageStart() {
-        // 특정 페이지의 범위를 정하는 구간, 현재 페이지의 게시글 시작 번호
-        // 0 ~ 10 , 10 ~ 20 이런식으로
+    private String  proCategory;
+    
+    public String getProCategory() {
+		return proCategory;
+	}
+
+	public void setProCategory(String proCategory) {
+		this.proCategory = proCategory;
+	}
+
+	public int getPageStart() {
+    	// 특정 페이지의 범위를 정하는 구간, 현재 페이지의 게시글 시작 번호
+    	// 0 ~ 10 , 10 ~ 20 이런식으로
         return (this.page -1) * perPageNum;
     }
  

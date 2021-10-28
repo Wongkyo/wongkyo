@@ -2,13 +2,10 @@ package com.to.t1.product;
 
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.to.t1.util.Criteria;
 import com.to.t1.util.PoFileManager;
 
@@ -23,7 +20,7 @@ public class ProductService {
 	@Autowired
 	private PoFileManager poFileManager;
 
-	// 상품 검색(미구현)
+	// 상품 검색
 	public List<ProductVO> proSearch(ProductVO productVO) throws Exception{
 		return productMapper.proSearch(productVO);
 	}
@@ -60,22 +57,22 @@ public class ProductService {
 	
 	// 상품 (의류) 리스트
 	public List<ProductVO> proClothing(ProductVO productVO)throws Exception{
-		return productMapper.proAppliances(productVO);
+		return productMapper.proClothing(productVO);
 	}
 	
 	// 상품 (생필품) 리스트
 	public List<ProductVO> proNecessity(ProductVO productVO)throws Exception{
-		return productMapper.proAppliances(productVO);
+		return productMapper.proNecessity(productVO);
 	}
 	
 	// 상품 (잡화) 리스트
 	public List<ProductVO> proMerchandise(ProductVO productVO)throws Exception{
-		return productMapper.proAppliances(productVO);
+		return productMapper.proMerchandise(productVO);
 	}
 	
 	// 상품 (음식) 리스트
 	public List<ProductVO> proFood(ProductVO productVO)throws Exception{
-		return productMapper.proAppliances(productVO);
+		return productMapper.proFood(productVO);
 	}
 	
 	// 상품 등록

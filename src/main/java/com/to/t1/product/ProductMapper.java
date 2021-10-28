@@ -2,10 +2,8 @@ package com.to.t1.product;
 
 import java.util.List;
 import java.util.Map;
-
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-
 import com.to.t1.util.Criteria;
 
 @Mapper
@@ -50,7 +48,7 @@ public interface ProductMapper {
 	// 상품 삭제
 	public int proDelete(ProductVO productVO)throws Exception;
 	
-	// 상품 검색(미구현)
+	// 상품 검색 @Param이용으로 productVO의 search꺼내서 사용  
 	public List<ProductVO> proSearch(@Param("productVO") ProductVO productVO)throws Exception;
 
 	// 상품 카테고리 선택

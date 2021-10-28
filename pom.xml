@@ -41,7 +41,7 @@
 		 	<artifactId>tomcat-embed-jasper</artifactId>
 		 </dependency>
 
-		<!--  -->
+		<!-- 부트스트랩 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>

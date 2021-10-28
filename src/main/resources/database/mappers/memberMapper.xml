@@ -73,11 +73,16 @@
 		
 		<!-- 회원 목록 -->
 		<!-- 현재는 목록만 추후에 목록에서 수정하는 admin 따로 만들고 목록에서 수정예정 -->
-		<select id="getList" resultType="MemberVO" parameterType="MemberVO">
+		<select id="getList" resultType="hashmap" parameterType="hashmap">
 				select *
 				from member
+				ORDER BY userId DESC; 
 		</select>
-
- 	
+		
+		<!-- 총 회원 수  -->
+		<select id="memListCnt" resultType="int">
+       	SELECT count(*)
+        FROM member
+   		</select>
 
 	</mapper>

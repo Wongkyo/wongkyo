@@ -2,24 +2,17 @@ package com.to.t1.product;
 
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpSession;
-
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.to.t1.util.Criteria;
 import com.to.t1.util.Paging;
 
@@ -30,13 +23,19 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 
-	// 상품 검색(미구현) -------------------------------------------------------------------------------
-	@GetMapping("proSearch")
-	public ModelAndView proSearch(ProductVO productVO, Authentication auth2)throws Exception{
+	// 상품 검색 -------------------------------------------------------------------------------
+	// 상품의 음절을 검색하면 proSearch 페이지로 이동
+	@RequestMapping("proSearch")
+	public ModelAndView proSearch(ProductVO productVO)throws Exception{
+		// 모델 앤 뷰 생성
 		ModelAndView mv = new ModelAndView();		
+		// 검색한 결과를 리스트 형식으로 배열 
 		List<ProductVO> search = productService.proSearch(productVO);
-		mv.addObject("proSearch", search);
-		mv.setViewName("product/proSearch");		
+		// 객체를 search에 담기
+		mv.addObject("search", search);
+		// product폴더 안 proSearch로 이동
+		mv.setViewName("product/proSearch");
+		// 모델 앤 뷰 리턴
 		return mv;
 	}
 	

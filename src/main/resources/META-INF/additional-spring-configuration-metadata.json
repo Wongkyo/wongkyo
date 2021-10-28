@@ -13,5 +13,15 @@
     "name": "notice.filePath",
     "type": "java.lang.String",
     "description": "A description for 'notice.filePath'"
+  },
+  {
+    "name": "member.filePath",
+    "type": "java.lang.String",
+    "description": "A description for 'member.filePath'"
+  },
+  {
+    "name": "member.filePath",
+    "type": "java.lang.String",
+    "description": "A description for 'member.filePath'"
   }
 ]}

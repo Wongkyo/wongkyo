@@ -1,15 +1,15 @@
 package com.to.t1.member;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-
+import com.to.t1.util.Criteria;
 import com.to.t1.util.FileManager;
 
 @Service
@@ -56,13 +56,7 @@ public class MemberService {
 		// 매퍼의 로그인 매퍼 가져오기
 		return memberMapper.memberLogin(memberVO);
 		}
-		
-	// 마이페이지 서비스
-	public MemberVO membermyPage(MemberVO memberVO)throws Exception{
-		// 매퍼의 마이페이지 매퍼 가져오기
-		return memberMapper.membermyPage(memberVO);
-		}
-	
+
 	// 수정 서비스
 	public int memberUpdate(MemberVO memberVO)throws Exception{
 		// 매퍼의 회원정보수정 매퍼 가져오기
@@ -76,9 +70,15 @@ public class MemberService {
 		}
 
 	// 회원 목록 서비스
-	public List<MemberVO> getList()throws Exception {
+	public List<Map<String, Object>> getList(Criteria cri)throws Exception {
 		// 매퍼의 회원정보목록 매퍼 가져오기
-		return memberMapper.getList();
+		return memberMapper.getList(cri);
 		}
+	// 총 회원수
+		public int memListCnt() throws Exception{
+			return memberMapper.memListCnt();
+		}
+	
+	
 	
 }

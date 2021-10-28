@@ -37,7 +37,7 @@
 					<thead class="thead">
 						<tr class="row100 head">
 							<!-- 상품 사진  -->
-							<th scope="col" class="text-center">상품사진</th>
+							<!-- <th scope="col" class="text-center">상품사진</th> -->
 							<!-- 상품 번호 -->
 							<th scope="col" class="text-center">상품번호</th>
 							<!-- 회원명 -->
@@ -47,7 +47,7 @@
 							<!-- 카테고리 -->
 							<th scope="col" class="text-center">카테고리</th>
 							<!-- 상품정보 -->
-							<th scope="col" class="text-center">상품정보</th>
+							<!-- <th scope="col" class="text-center">상품정보</th> -->
 							<!-- 상품가격 -->
 							<th scope="col" class="text-center">상품가격</th>
 						</tr>
@@ -59,9 +59,9 @@
 					<c:forEach items="${food}" var="food">
 						<tr class="row100 body">
 							<!-- 상품 사진-->
-							<td scope="col" class="text-center"><img class="img-fluid rounded mb-4 mb-lg-0" 
+							<%-- <td scope="col" class="text-center"><img class="img-fluid rounded mb-4 mb-lg-0" 
 												                src="../resources/uploadproduct/${food.fileName}" alt="..." 
-												                  width="60" height="60"	/></td>
+												                  width="60" height="60"	/></td> --%>
 							<!-- 상품 전호 오름차순으로 정렬, 링크로 해당번호 상품 이동가능 -->
 							<td scope="col" class="text-center"><a href="./cateSelect?proNum=${food.proNum}">${food.proNum}</a></td>
 							<!-- 상품 등록한 유저 아이디 -->
@@ -71,7 +71,7 @@
 							<!-- 상품 카테고리 -->
 							<td scope="col" class="text-center">${food.proCategory}</td>
 							<!-- 상품 정보 -->
-							<td scope="col" class="text-center">${food.proInfo}</td>
+							<%-- <td scope="col" class="text-center">${food.proInfo}</td> --%>
 							<!-- 상품 가격 -->
 							<td scope="col" class="text-center">${food.proPrice}</td>
 						</tr>

@@ -6,17 +6,14 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.to.t1.util.Criteria;
 import com.to.t1.util.Paging;
 
@@ -41,7 +38,7 @@ public class NoticeController {
 			// 서비스에서 return값으로 insertNotiece 가져오기
 			int result = noticeService.insertNotice(noticeVO, avatar, session);			
 			// 공지사항 작성 후 홈화면으로 이동
-			return "redirect:/";		
+			return "redirect:/memberAdmin";		
 		}
 		
 		// 게시판 글 목록 -------------------------------------------------------------------------------

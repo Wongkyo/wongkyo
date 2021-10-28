@@ -6,158 +6,161 @@
     
     <!-- 네임스페이스 적용 -->  
     <mapper namespace="com.to.t1.product.ProductMapper">
-    
-    <!-- 상품검색 -->
-    <!-- 미완성 -->
-    <select id="proSearch" parameterType="ProductVO" resultType="ProductVO">
-    		SELECT *
-			FROM product
-			WHERE (proName LIKE CONCAT('%', "#{productVO.search}", '%'))    		
-    </select>
-    
-    <!-- 상품 등록 -->   
-  	<!-- auto increment로 자동증가하는 proNum생략, 유저아이디는 멤버에서 받아온 아이디로 작성, 나머지는 직접 입력 -->
-    <insert id="proInsert">
-	    	INSERT INTO product ( userId, proName, proCategory, proInfo, proPrice )
-			VALUES (#{userId}, #{proName}, #{proCategory}, #{proInfo}, #{proPrice})
-    </insert>
-    
-    <!-- 상품 이미지 등록 -->
-    <!-- 상품 번호와 상품사진 파일번호를 맞추기위해 상품 최대값을 구해 파일의 기본키에 대입 -->
-    <insert id="fileInsert" parameterType="ProfilesVO">
-			INSERT INTO profiles (proNum, fileName, oriName)
-			VALUES ((SELECT IFNULL(MAX(proNum)+1,1)
-			FROM profiles PF), #{fileName}, #{oriName})
-    </insert>
-    
-    <!-- 상품 선택 -->
-    <!-- 상품 선택시 상품 사진과 함께 보이기 위해 상품파일 테이블과 join실행후 번호로 선택 -->
-    <select id="proSelect" parameterType="ProductVO" resultType="ProductVO">
-			SELECT P.*, PF.*
-			from product P LEFT JOIN profiles PF
-			ON P.proNum = PF.proNum
-			WHERE P.proNum = #{proNum}
-    </select>
-		
-	<!-- 파일 선택 -->	
-	<!-- 파일 선택시 상품과 이미지 테이블을 리절트맵으로 엮음 -->
-	<select id="fileSelect" parameterType="ProfilesVO" resultMap="productResult">
-			SELECT P.*, PF.*
-			from product P LEFT JOIN profiles PF
-			ON P.proNum = PF.proNum
-			WHERE P.proNum = #{proNum}
-	</select>	
-		
-	<!-- 상품 상품 이미지 테이블  -->
-    <resultMap type="ProductVO" id="productResult">
-    	<id property="proNum" column="proNum"/>
-    	<result property="userId" column="userId"/>
-    	<result property="proName" column="proName"/>
-    	<result property="proCategory" column="proCategory"/>
-    	<result property="proInfo" column="proInfo"/>
-    	<result property="proPrice" column="proPrice"/>
-    	<association property="profilesVO" javaType="ProfilesVO" resultMap="fileResult">
-    	</association>   	
-    </resultMap>
-    
-	<resultMap type="ProfilesVO" id="fileResult">
-		<id property="fileNum" column="fileNum"/>
-		<result property="fileName" column="fileName"/>
-		<result property="oriName" column="oriName"/>
-	</resultMap>
-
-	<!-- 상품 전체 목록 조회와 리미트로 페이징 처리 -->
-	<select id="proList" resultType="hashmap" parameterType="hashmap">        
-            SELECT P.*, PF.*
-			from product P LEFT JOIN profiles PF
-			ON P.proNum = PF.proNum		
-			ORDER BY P.proNum desc
-            LIMIT #{pageStart}, #{perPageNum}       
-	</select>	
-
-	<!-- 상품 전체 갯수 조회 -->
-	<select id="proListCnt" resultType="int">
-     	    SELECT count(*)
-       		FROM product
-	</select>
-
-    <!-- 상품 제거 -->
-    <!-- 상품 번호에 따른 상품 제거 -->
-    <delete id="proDelete" parameterType="ProductVO">
-	    	DELETE 
-			FROM product
-			WHERE proNum = #{proNum}
-    </delete>   
-    
-    <!-- 상품 수정 -->
-    <!-- 상품 번호에 따른 상품 정보수정, 번호는 변경 불가능 -->
-    <update id="proUpdate" parameterType="ProductVO">
-	    	UPDATE product 
-			SET proName=#{proName}, proCategory=#{proCategory}, proInfo=#{proInfo}, proPrice=#{proPrice}
-			WHERE proNum = #{proNum}
-    </update>
-         
-    <!-- 상품 이미지 삭제 -->
-    <!-- 상품의 이미지가 맞물리지 않을경우를 대비한 상품 파일 삭제  -->
-    <delete id="fileDelete" parameterType="ProfilesVO">
-	    	DELETE
-			FROM profiles
-			WHERE proNum=#{proNum};		
-    </delete>
-    
-    <!-- 상품 카테고리 리스트 -->
-    <!-- 상품 리스트중 전자 제품만을 검색하고 오름차순으로 정렬 -->
-    <select id="proAppliances" parameterType="ProductVO" resultType="ProductVO">
-    		SELECT P.*, PF.oriName, PF.fileName
-			from product P LEFT JOIN profiles PF
-			ON P.proNum = PF.proNum
-			WHERE proCategory = #{proCategory}
-			ORDER BY proNum DESC;		    
-    </select>
-    
-    <!-- 상품 리스트중 의류 제품만을 검색하고 오름차순으로 정렬 -->
-    <select id="proClothing" parameterType="ProductVO" resultType="ProductVO">
-    		SELECT P.*, PF.oriName, PF.fileName
-			from product P LEFT JOIN profiles PF
-			ON P.proNum = PF.proNum
-			WHERE proCategory = #{proCategory}
-			ORDER BY proNum DESC;		    
-    </select>
-    
-    <!-- 상품 리스트중 생필품 제품만을 검색하고 오름차순으로 정렬 -->
-    <select id="proNecessity" parameterType="ProductVO" resultType="ProductVO">
-    		SELECT P.*, PF.oriName, PF.fileName
-			from product P LEFT JOIN profiles PF
-			ON P.proNum = PF.proNum
-			WHERE proCategory = #{proCategory}
-			ORDER BY proNum DESC;		    
-    </select>
-    
-    <!-- 상품 리스트중 잡화 제품만을 검색하고 오름차순으로 정렬 -->
-    <select id="promerchandise" parameterType="ProductVO" resultType="ProductVO">
-    		SELECT P.*, PF.oriName, PF.fileName
-			from product P LEFT JOIN profiles PF
-			ON P.proNum = PF.proNum
-			WHERE proCategory = #{proCategory}
-			ORDER BY proNum DESC;		    
-    </select>
-    
-    <!-- 상품 리스트중 음식 제품만을 검색하고 오름차순으로 정렬 -->
-    <select id="proFood" parameterType="ProductVO" resultType="ProductVO">
-    		SELECT P.*, PF.oriName, PF.fileName
-			from product P LEFT JOIN profiles PF
-			ON P.proNum = PF.proNum
-			WHERE proCategory = #{proCategory}
-			ORDER BY proNum DESC;		    
-    </select>
-    
-    <!-- 카테고리 선택 -->
-    <!-- 상품 카테고리별로 번호로 상품 선택 -->
-    <select id="cateSelect" parameterType="ProductVO" resultType="ProductVO">
-    		SELECT P.*, PF.oriName, PF.fileName
-			from product P LEFT JOIN profiles PF
-			ON P.proNum = PF.proNum
-			WHERE P.proNum = #{proNum};
-    </select>
+	    
+	    <!-- 상품검색 -->
+	    <!-- 원하는 상품의 음절을 검색하여 productVO안의 search에 값을 담아 
+	    proName과 음절이 맞는 모든 상품 검색 검색후 proNum으로 오름차순 조회-->
+	    <select id="proSearch" parameterType="ProductVO" resultType="ProductVO">
+	    		SELECT P.*, PF.oriName, PF.fileName
+				from product P LEFT JOIN profiles PF
+				ON P.proNum = PF.proNum
+				WHERE (P.proName LIKE CONCAT('%', #{productVO.search}, '%'))	   	
+				ORDER BY proNum DESC;		
+	    </select>
+	    
+	    <!-- 상품 등록 -->   
+	  	<!-- auto increment로 자동증가하는 proNum생략, 유저아이디는 멤버에서 받아온 아이디로 작성, 나머지는 직접 입력 -->
+	    <insert id="proInsert">
+		    	INSERT INTO product ( userId, proName, proCategory, proInfo, proPrice )
+				VALUES (#{userId}, #{proName}, #{proCategory}, #{proInfo}, #{proPrice})
+	    </insert>
+	    
+	    <!-- 상품 이미지 등록 -->
+	    <!-- 상품 번호와 상품사진 파일번호를 맞추기위해 상품 최대값을 구해 파일의 기본키에 대입 -->
+	    <insert id="fileInsert" parameterType="ProfilesVO">
+				INSERT INTO profiles (proNum, fileName, oriName)
+				VALUES ((SELECT IFNULL(MAX(proNum)+1,1)
+				FROM profiles PF), #{fileName}, #{oriName})
+	    </insert>
+	    
+	    <!-- 상품 선택 -->
+	    <!-- 상품 선택시 상품 사진과 함께 보이기 위해 상품파일 테이블과 join실행후 번호로 선택 -->
+	    <select id="proSelect" parameterType="ProductVO" resultType="ProductVO">
+				SELECT P.*, PF.*
+				from product P LEFT JOIN profiles PF
+				ON P.proNum = PF.proNum
+				WHERE P.proNum = #{proNum}
+	    </select>
+			
+		<!-- 파일 선택 -->	
+		<!-- 파일 선택시 상품과 이미지 테이블을 리절트맵으로 엮음 -->
+		<select id="fileSelect" parameterType="ProfilesVO" resultMap="productResult">
+				SELECT P.*, PF.*
+				from product P LEFT JOIN profiles PF
+				ON P.proNum = PF.proNum
+				WHERE P.proNum = #{proNum}
+		</select>	
+			
+		<!-- 상품 상품 이미지 테이블  -->
+	    <resultMap type="ProductVO" id="productResult">
+	    	<id property="proNum" column="proNum"/>
+	    	<result property="userId" column="userId"/>
+	    	<result property="proName" column="proName"/>
+	    	<result property="proCategory" column="proCategory"/>
+	    	<result property="proInfo" column="proInfo"/>
+	    	<result property="proPrice" column="proPrice"/>
+	    	<association property="profilesVO" javaType="ProfilesVO" resultMap="fileResult">
+	    	</association>   	
+	    </resultMap>
+	    
+		<resultMap type="ProfilesVO" id="fileResult">
+			<id property="fileNum" column="fileNum"/>
+			<result property="fileName" column="fileName"/>
+			<result property="oriName" column="oriName"/>
+		</resultMap>
+	
+		<!-- 상품 전체 목록 조회와 리미트로 페이징 처리 -->
+		<select id="proList" resultType="hashmap" parameterType="hashmap">        
+	            SELECT P.*, PF.*
+				from product P LEFT JOIN profiles PF
+				ON P.proNum = PF.proNum		
+				ORDER BY P.proNum desc
+	            LIMIT #{pageStart}, #{perPageNum}       
+		</select>	
+	
+		<!-- 상품 전체 갯수 조회 -->
+		<select id="proListCnt" resultType="int">
+	     	    SELECT count(*)
+	       		FROM product
+		</select>
+	
+	    <!-- 상품 제거 -->
+	    <!-- 상품 번호에 따른 상품 제거 -->
+	    <delete id="proDelete" parameterType="ProductVO">
+		    	DELETE 
+				FROM product
+				WHERE proNum = #{proNum}
+	    </delete>   
+	    
+	    <!-- 상품 수정 -->
+	    <!-- 상품 번호에 따른 상품 정보수정, 번호는 변경 불가능 -->
+	    <update id="proUpdate" parameterType="ProductVO">
+		    	UPDATE product 
+				SET proName=#{proName}, proCategory=#{proCategory}, proInfo=#{proInfo}, proPrice=#{proPrice}
+				WHERE proNum = #{proNum}
+	    </update>
+	         
+	    <!-- 상품 이미지 삭제 -->
+	    <!-- 상품의 이미지가 맞물리지 않을경우를 대비한 상품 파일 삭제  -->
+	    <delete id="fileDelete" parameterType="ProfilesVO">
+		    	DELETE
+				FROM profiles
+				WHERE proNum=#{proNum};		
+	    </delete>
+	    
+	    <!-- 상품 카테고리 리스트 -->
+	    <!-- 상품 리스트중 전자 제품만을 검색하고 오름차순으로 정렬 -->
+	    <select id="proAppliances" parameterType="ProductVO" resultType="ProductVO">
+	    		SELECT P.*, PF.oriName, PF.fileName
+				from product P LEFT JOIN profiles PF
+				ON P.proNum = PF.proNum
+				WHERE proCategory = #{proCategory}
+				ORDER BY proNum DESC;		    
+	    </select>
+	    
+	    <!-- 상품 리스트중 의류 제품만을 검색하고 오름차순으로 정렬 -->
+	    <select id="proClothing" parameterType="ProductVO" resultType="ProductVO">
+	    		SELECT P.*, PF.oriName, PF.fileName
+				from product P LEFT JOIN profiles PF
+				ON P.proNum = PF.proNum
+				WHERE proCategory = #{proCategory}
+				ORDER BY proNum DESC;		    
+	    </select>
+	    
+	    <!-- 상품 리스트중 생필품 제품만을 검색하고 오름차순으로 정렬 -->
+	    <select id="proNecessity" parameterType="ProductVO" resultType="ProductVO">
+	    		SELECT P.*, PF.oriName, PF.fileName
+				from product P LEFT JOIN profiles PF
+				ON P.proNum = PF.proNum
+				WHERE proCategory = #{proCategory}
+				ORDER BY proNum DESC;		    
+	    </select>
+	    
+	    <!-- 상품 리스트중 잡화 제품만을 검색하고 오름차순으로 정렬 -->
+	    <select id="proMerchandise" parameterType="ProductVO" resultType="ProductVO">
+	    		SELECT P.*, PF.oriName, PF.fileName
+				from product P LEFT JOIN profiles PF
+				ON P.proNum = PF.proNum
+				WHERE proCategory = #{proCategory}
+				ORDER BY proNum DESC;		    
+	    </select>
+	    
+	    <!-- 상품 리스트중 음식 제품만을 검색하고 오름차순으로 정렬 -->
+	    <select id="proFood" parameterType="ProductVO" resultType="ProductVO">
+	    		SELECT P.*, PF.oriName, PF.fileName
+				from product P LEFT JOIN profiles PF
+				ON P.proNum = PF.proNum
+				WHERE proCategory = #{proCategory}
+				ORDER BY proNum DESC;		    
+	    </select>
+	    
+	    <!-- 카테고리 선택 -->
+	    <!-- 상품 카테고리별로 번호로 상품 선택 -->
+	    <select id="cateSelect" parameterType="ProductVO" resultType="ProductVO">
+	    		SELECT P.*, PF.oriName, PF.fileName
+				from product P LEFT JOIN profiles PF
+				ON P.proNum = PF.proNum
+				WHERE P.proNum = #{proNum};
+	    </select>
   
     </mapper>

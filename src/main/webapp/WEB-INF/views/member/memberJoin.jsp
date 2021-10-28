@@ -39,27 +39,49 @@
 	/* 회원가입 유효성 체크 */
 	function registerCheck() {
 		// 이름 입력
-	    if($.trim($('#name').val()) == '') {
-	        alert("이름을 입력해주세요.");
-	        return false;
-	    }
+	   
 		// 아이디 입력
 	    if($.trim($('#userId').val()) == '') {
 	        alert("아이디를 입력해주세요.");
 	        return false;
 	    }
 		// 비밀번호 입력
-	    if($.trim($('#userPw').val()) == '') {
+	    if($.trim($('#userPw1').val()) == '') {
 	        alert("비밀번호를 입력해주세요.");
 	        return false;
 	    }
+	    // 이름 입력
+		if($.trim($('#name').val()) == '') {
+	        alert("이름을 입력해주세요.");
+	        return false;
+	    }
+		// 핸드폰 입력
+	    if($.trim($('#phone').val()) == '') {
+	        alert("핸드폰를 입력해주세요.");
+	        return false;
+	    }    
+	 	// 이메일 입력
+	    if($.trim($('#email').val()) == '') {
+	        alert("이메일를 입력해주세요.");
+	        return false;
+	    }
+		// 주소 입력
+	    if($.trim($('#adress').val()) == '') {
+	        alert("주소를 입력해주세요.");
+	        return false;
+	    } 
+	 	// 생년월일 입력
+	    if($.trim($('#birth').val()) == '') {
+	        alert("생년월일를 입력해주세요.");
+	        return false;
+	    }
+	 
 		// 모두입력시 회원가입 진행
 	    if(confirm("회원가입을 하시겠습니까?")){
 	        alert("회원가입이 완료되었습니다. 감사합니다.");
 	         $("form").submit();    
 	    }
 		}
- 
  
 		/* 아이디 중복 체크 : ajax 비동기처리 */
 		function idCheck() {	
@@ -80,12 +102,12 @@
 		                success: function(count) {    
 		                    if(count > 0) {
 		                    	// count 조회해서 아이디가 없으면 0 있으면 1이므로 count가 0보다 크면 아이디 존재
-		                        alert("해당 아이디 존재");    
+		                        alert("아이디가 존재합니다. 다른 아이디를 만들어 주세요.");    
 		                        $("#submit").attr("disabled", "disabled");
 		                        window.location.reload();
 		                    } else {
 		                    	// count가 영보다 크지않으므로 아이디 생성 가능
-		                        alert("사용가능 아이디");
+		                        alert("사용가능한 아이디입니다.");
 		                        $("#submit").removeAttr("disabled");
 		                    }            
 		                },
@@ -118,7 +140,7 @@
           <div class="mb-3">
             <label for="id">아이디</label>
             <!-- 버튼클릭으로 온클릭 idCheck 발생 자바스크립트로 아이디 중복확인 -->
-            <button type="button"  onclick="idCheck()" style="border: 1px solid black;float: right; width: 50px;">확인</button>
+            <button type="button" onclick="idCheck()" style="border: 1px solid black;float: right; width: 50px;">확인</button>
             <!-- 아이디 입력폼  -->
             <input type="text" class="form-control" name="userId" id="userId" placeholder="아이디 입력" required >
             <!-- 아이디를 입력하지 않았을 시 발생 -->
@@ -132,12 +154,22 @@
           <!-- 패스워드 입력 태그 -->  
           <div class="mb-3">
             <label for="address">패스워드</label>
-            <input type="text" class="form-control" name="userPw" id="userPw" placeholder="패스워드 입력" required>
+            <input type="password" class="form-control" name="userPw" id="userPw1" placeholder="패스워드 입력" required>
             <div class="invalid-feedback">
               패스워드를 입력해주세요.
             </div>
           </div>
-           
+          
+          <div class="mb-3">
+            <label for="address">패스워드 확인</label>
+            <input type="password" class="form-control" name="userPw2" id="userPw2" placeholder="패스워드 확인" required>
+              <span id="alert-success" style="display: none;">비밀번호가 일치합니다.</span>
+  			  <span id="alert-danger" style="display: none; color: #d92742; font-weight: bold; ">비밀번호가 일치하지 않습니다.</span>
+            <div class="invalid-feedback">
+              패스워드를 입력해주세요.
+            </div>
+          </div>
+
           <!-- 이름 입력 태그 -->          
           <div class="mb-3">
             <label for="address">이름</label>
@@ -213,6 +245,28 @@
     <footer class="my-3 text-center text-small">
       <p class="mb-1">&copy; New Market</p>
     </footer>
+    
+    
+<script>
+    $('.form-control').focusout(function () {
+        var pwd1 = $("#userPw1").val();
+        var pwd2 = $("#userPw2").val();
+  
+        if ( pwd1 != '' && pwd2 == '' ) {
+            null;
+        } else if (pwd1 != "" || pwd2 != "") {
+            if (pwd1 == pwd2) {
+                $("#alert-success").css('display', 'inline-block');
+                $("#alert-danger").css('display', 'none');
+            } else {
+                alert("비밀번호가 일치하지 않습니다. 비밀번호를 재확인해주세요.");
+                $("#alert-success").css('display', 'none');
+                $("#alert-danger").css('display', 'inline-block');
+            }
+        }
+    });
+</script>
+
 		<!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
