@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class HelloController {
+public class HomeController {
 
 	// 홈으로 가는 컨트롤러 /으로 가면 홈으로 이동
 	@RequestMapping(value="/")
