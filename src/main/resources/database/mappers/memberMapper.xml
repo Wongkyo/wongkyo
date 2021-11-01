@@ -81,8 +81,8 @@
 		
 		<!-- 총 회원 수  -->
 		<select id="memListCnt" resultType="int">
-       	SELECT count(*)
-        FROM member
+		       	SELECT count(*)
+		        FROM member
    		</select>
 
 	</mapper>

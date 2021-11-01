@@ -63,7 +63,6 @@
 			    
 			    <!-- 회원정보 리스트 -->     
 			    <h5>아이디: ${member.userId}</h5>
-				<h5>비밀번호: ${member.userPw}</h5>
 				<h5>이름: ${member.name}</h5>
 				<h5>핸드폰: ${member.phone}</h5>
 				<h5>주소	: ${member.adress}</h5>

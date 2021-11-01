@@ -36,7 +36,7 @@
   </style>
   
   <script type="text/javascript">
-	/* 회원가입 유효성 체크 */
+	/* 회원가입 유효성 체크 모두 입력해야 회원가입 진행 가능 */
 	function registerCheck() {
 		// 이름 입력
 	   
@@ -246,12 +246,13 @@
       <p class="mb-1">&copy; New Market</p>
     </footer>
     
-    
+<!-- 비밀번호 확인 스크립트 -->    
 <script>
     $('.form-control').focusout(function () {
-        var pwd1 = $("#userPw1").val();
+   
+    	var pwd1 = $("#userPw1").val();
         var pwd2 = $("#userPw2").val();
-  
+  		
         if ( pwd1 != '' && pwd2 == '' ) {
             null;
         } else if (pwd1 != "" || pwd2 != "") {

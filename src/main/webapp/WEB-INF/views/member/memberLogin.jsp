@@ -56,7 +56,7 @@ function login(){
                   <!-- 패스워드 입력 태그 -->
                   <div class="form-group">
                      <label>Password</label>
-                     <input id="password" name="userPw" class="form-control" placeholder="Password">
+                     <input id="password" name="userPw" class="form-control" placeholder="Password" type="password">
                   </div>
                  
                  <!-- 공백 -->
